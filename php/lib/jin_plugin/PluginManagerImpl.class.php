@@ -1,7 +1,10 @@
 <?php
 
 	require_once "lib/spyc/spyc.php";
-
+	/**
+	 * Modifications 
+	 * 2015-06-11 : replace deprecated function split(..) by explode(..)
+	 */
 	class PluginManagerImpl {
 	
 		public function __construct($pluginsDir) {
@@ -26,9 +29,10 @@
 		}
 		
 		private function loadPluginDependencies($deps) {
-			$deps = split(',', $deps);
-			foreach($deps as $dep)
-				$this->loadPlugin($this->pluginsDir . '/' . $dep);
+			// $deps = split(',', $deps); 2015-06-11 deprecated function
+			$listDeps = explode(',',$deps);
+			foreach($listDeps as $itemDep)
+				$this->loadPlugin($this->pluginsDir . '/' . $itemDep);
 		}
 		
 		public function init() {
